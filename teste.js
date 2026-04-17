@@ -1,18 +1,20 @@
-function contarAdultos(pacientes){
+function contarAdultos(pacientes) {
     const vistos = new Set();
 
-   pacientes.forEach(paciente => {
-    const identificador = `${paciente.nome}|${paciente.idade}`;
-    vistos.add(identificador); 
-   });
+    const unicos = pacientes.filter(paciente => {
+        const identificador = `${paciente.nome}-${paciente.idade}`;
 
-   const adultos = Array.from(vistos).filter(identificador => {
-    const partes = identificador.split('|');
-    const idade = Number(partes[1]);
-    return idade >= 18;
-   });
+        if (vistos.has(identificador)) {
+            return false;
+        }
 
-   return adultos.length;
+        vistos.add(identificador);
+        return true;
+    });
+
+    const adultos = unicos.filter(paciente => paciente.idade >= 18);
+
+    return adultos.length;
 }
 
 // Teste
