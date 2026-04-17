@@ -7,7 +7,8 @@ function contarAdultos(pacientes){
    });
 
    const adultos = Array.from(vistos).filter(identificador => {
-    const idade = Number (identificador.split('|')[1]);
+    const partes = identificador.split('|');
+    const idade = Number(partes[1]);
     return idade >= 18;
    });
 
