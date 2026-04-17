@@ -1,17 +1,22 @@
-function contarAdultos(pacientes){
+function removerDuplicados(pacientes) {
     const vistos = new Set();
 
-   pacientes.forEach(p => {
-    const chave = `${p.nome}|${p.idade}`;
-    vistos.add(chave); 
-   });
+    return pacientes.filter(paciente => {
+        const identificador = `${paciente.nome}-${paciente.idade}`;
 
-   const adultos = Array.from(vistos).filter(chave => {
-    const idade = Number (chave.split('|')[1]);
-    return idade >= 18;
-   });
+        if (vistos.has(identificador)) {
+            return false;
+        }
 
-   return adultos.length;
+        vistos.add(identificador);
+        return true;
+    });
+}
+
+function contarAdultos(pacientes) {
+    const pacientesUnicos = removerDuplicados(pacientes);
+
+    return pacientesUnicos.filter(paciente => paciente.idade >= 18).length;
 }
 
 // Teste
