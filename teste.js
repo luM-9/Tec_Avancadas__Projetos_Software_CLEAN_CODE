@@ -1,7 +1,7 @@
-function contarAdultos(pacientes) {
+function removerDuplicados(pacientes) {
     const vistos = new Set();
 
-    const unicos = pacientes.filter(paciente => {
+    return pacientes.filter(paciente => {
         const identificador = `${paciente.nome}-${paciente.idade}`;
 
         if (vistos.has(identificador)) {
@@ -11,10 +11,12 @@ function contarAdultos(pacientes) {
         vistos.add(identificador);
         return true;
     });
+}
 
-    const adultos = unicos.filter(paciente => paciente.idade >= 18);
+function contarAdultos(pacientes) {
+    const pacientesUnicos = removerDuplicados(pacientes);
 
-    return adultos.length;
+    return pacientesUnicos.filter(paciente => paciente.idade >= 18).length;
 }
 
 // Teste
